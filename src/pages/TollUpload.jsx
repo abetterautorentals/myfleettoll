@@ -485,19 +485,6 @@ export default function TollUpload() {
     await base44.entities.TollNotice.create(tollRecord);
     return { isDuplicate: false, matched: !!match };
 };
-    if (!match) {
-      await base44.entities.Alert.create({
-        type: 'toll_unmatched',
-        title: 'Unmatched Toll',
-        message: `Toll for ${toll.license_plate} on ${toll.occurrence_date} ($${toll.amount}) has no matching contract`,
-        fleet: toll.fleet,
-        severity: 'critical',
-        license_plate: toll.license_plate,
-      });
-    }
-    return { isDuplicate: false, matched: !!match };
-  };
-
   const saveMutation = useMutation({
     mutationFn: async () => {
       let matched = 0;
