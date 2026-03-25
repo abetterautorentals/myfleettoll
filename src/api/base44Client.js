@@ -46,10 +46,15 @@ function makeEntity(table) {
       return data;
     },
     create: async (obj) => {
-      const { data, error } = await supabase.from(table).insert(obj).select().single();
-      if (error) throw error;
-      return data;
-    },
+  const { data, error } = await supabase.from(table).insert(obj).select().single();
+  if (error) { console.error(table, error); return obj; }
+  return data;
+},
+createMany: async (objects) => {
+  const { data, error } = await supabase.from(table).insert(objects).select();
+  if (error) { console.error(table, error); return []; }
+  return data || [];
+},
     update: async (id, updates) => {
       const { data, error } = await supabase.from(table).update(updates).eq('id', id).select().single();
       if (error) throw error;
