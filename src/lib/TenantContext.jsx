@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../integrations/supabase/client';
+export const PLANS = {
+  starter:      { name: 'Starter',      price: 29,  maxFleets: 1,    maxTolls: 50  },
+  professional: { name: 'Professional', price: 49,  maxFleets: 3,    maxTolls: null },
+  business:     { name: 'Business',     price: 99,  maxFleets: null, maxTolls: null },
+  owner:        { name: 'Owner',        price: 0,   maxFleets: null, maxTolls: null },
+  free:         { name: 'Free',         price: 0,   maxFleets: 1,    maxTolls: 10  },
+};
 
 const TenantContext = createContext(null);
 
