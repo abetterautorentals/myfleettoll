@@ -485,7 +485,6 @@ export default function TollUpload() {
     await base44.entities.TollNotice.create(tollRecord);
     return { isDuplicate: false, matched: !!match };
 };
-    await base44.entities.TollNotice.create(tollRecord);
     if (!match) {
       await base44.entities.Alert.create({
         type: 'toll_unmatched',
