@@ -441,33 +441,7 @@ export default function TollUpload() {
     });
   };
 
-  // Check for duplicates: Transaction ID first, then fallback to plate+date+time+location+amount
-  const checkDuplicate = async (toll) => {
-    if (!toll.license_plate || !toll.occurrence_date) return null;
-    
-    // If we have a transaction ID, that's the primary duplicate check
-    if (toll.transaction_id) {
-      const existing = await base44.entities.TollNotice.filter({
-        transaction_id: toll.transaction_id,
-      });
-      return existing.length > 0 ? existing[0] : null;
-    }
-    
-    // Fallback: check plate + date + time + location + amount combo
-    const existing = await base44.entities.TollNotice.filter({
-      license_plate: toll.license_plate.toUpperCase(),
-      occurrence_date: toll.occurrence_date,
-    });
-    const amount = parseFloat(toll.amount) || 0;
-    const time = (toll.occurrence_time || '').trim();
-    const location = (toll.location || '').trim();
-    return existing.find(e => {
-      const amountMatch = Math.abs((e.amount || 0) - amount) < 0.01;
-      const timeMatch = !time || !e.occurrence_time || time === (e.occurrence_time || '').trim();
-      const locMatch = !location || !e.location || location === (e.location || '').trim();
-      return amountMatch && timeMatch && locMatch;
-    }) || null;
-  };
+  const checkDuplicate = async () => null;
 
  const saveSingleToll = async (toll) => {
     const match = findMatch(toll);
