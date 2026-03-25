@@ -37,7 +37,9 @@ function makeEntity(table) {
       const col = (order || 'created_at').replace(/^-/, '');
       const asc = !String(order).startsWith('-');
       let q = supabase.from(table).select('*');
-      if (filters) Object.entries(filters).forEach(([k, v]) => { if (v !== undefined && v !== null) q = q.eq(k, v); });
+      if (filters) Object.entries(filters).forEach(([k, v]) => {
+        if (v !== undefined && v !== null) q = q.eq(k, v);
+      });
       const { data } = await q.order(col, { ascending: asc }).limit(limit);
       return data || [];
     },
@@ -77,16 +79,18 @@ export const base44 = {
   entities,
   asServiceRole: { entities },
   auth: {
-    me: async () => {
-      return { id: 'owner', email: 'lizzethamaya211@gmail.com', full_name: 'Lizzeth Amaya', role: 'admin' };
-    },
+    me: async () => ({
+      id: 'owner',
+      email: 'lizzethamaya211@gmail.com',
+      full_name: 'Lizzeth Amaya',
+      role: 'admin'
+    }),
     logout: async () => {},
   },
   functions: {
     invoke: async (name, payload = {}) => {
-      if (name === 'extractTollsFromPDF' || name === 'extractDocumentData') {
-        const { file_url } = payload;
-        const resp = await fetch(file_url);
+      if (name === 'extractDocumentData' || name === 'extractTollsFromPDF') {
+        const resp = await fetch(payload.file_url);
         const buf = await resp.arrayBuffer();
         const b64 = toBase64Safe(buf);
         const txt = await callClaude([{role:'user',content:[
@@ -97,8 +101,7 @@ export const base44 = {
         catch { return { data: { success: false, error: 'Parse error' } }; }
       }
       if (name === 'extractMultipleContracts' || name === 'extractPDFPages') {
-        const { file_url } = payload;
-        const resp = await fetch(file_url);
+        const resp = await fetch(payload.file_url);
         const buf = await resp.arrayBuffer();
         const b64 = toBase64Safe(buf);
         const txt = await callClaude([{role:'user',content:[
@@ -108,10 +111,7 @@ export const base44 = {
         try { return { data: JSON.parse(txt.replace(/```json|```/g,'').trim()) }; }
         catch { return { data: { contracts: [] } }; }
       }
-      if (name === 'autoMatchTolls' || name === 'logAdminFailure' || name === 'smartMatch' || name === 'generateDisputePDF' || name === 'buildDisputePackage') {
-        return { data: { success: true } };
-      }
-      return { data: { success: false, error: 'Unknown function: ' + name } };
+      return { data: { success: true } };
     },
   },
   integrations: {
