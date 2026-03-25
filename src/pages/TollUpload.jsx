@@ -469,24 +469,22 @@ export default function TollUpload() {
     }) || null;
   };
 
-  const saveSingleToll = async (toll, forceAdd = false) => {
-    if (!forceAdd) {
-      const dup = await checkDuplicate(toll);
-      if (dup) return { isDuplicate: true, duplicate: dup, toll };
-    }
+ const saveSingleToll = async (toll) => {
     const match = findMatch(toll);
     const isMatched = match && match.signature_status !== 'pending';
     const tollRecord = {
       ...toll,
       amount: parseFloat(toll.amount) || 0,
       notice_image_urls: uploadedFileUrls,
-      tenant_id: tenant?.id,
       match_status: match ? (match.signature_status === 'pending' ? 'pending_signature' : 'matched') : 'unmatched',
       lifecycle_status: isMatched ? 'matched' : 'unmatched',
       matched_contract_id: match ? String(match.id) : undefined,
       matched_renter_name: match ? match.renter_name : undefined,
       matched_platform: match ? match.platform : undefined,
     };
+    await base44.entities.TollNotice.create(tollRecord);
+    return { isDuplicate: false, matched: !!match };
+};
     await base44.entities.TollNotice.create(tollRecord);
     if (!match) {
       await base44.entities.Alert.create({
