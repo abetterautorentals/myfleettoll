@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* DARK MODE AS DEFAULT — Deep navy premium palette */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --card: 222 40% 9%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 40% 9%;
+    --popover-foreground: 210 40% 96%;
+
+    /* Electric blue primary */
+    --primary: 213 100% 64%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Dark secondary surfaces */
+    --secondary: 222 35% 14%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 222 35% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    /* Orange accent */
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 30% 16%;
+    --input: 222 30% 14%;
+    --ring: 213 100% 64%;
+
+    --chart-1: 213 100% 64%;
+    --chart-2: 142 70% 45%;
+    --chart-3: 25 95% 53%;
+    --chart-4: 0 72% 58%;
+    --chart-5: 270 80% 65%;
+
+    --radius: 0.75rem;
+
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 25 95% 53%;
+    --warning-foreground: 0 0% 100%;
+    --info: 213 100% 64%;
+    --info-foreground: 0 0% 100%;
+
+    --sidebar-background: 222 40% 9%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 213 100% 64%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 35% 14%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 222 30% 16%;
+    --sidebar-ring: 213 100% 64%;
+  }
+
+  /* Light mode overrides */
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 221 42% 18%;
+    --card: 210 16% 98%;
+    --card-foreground: 221 42% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 221 42% 18%;
+    --primary: 270 91% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 12% 94%;
+    --secondary-foreground: 221 42% 18%;
+    --muted: 210 12% 94%;
+    --muted-foreground: 217 13% 42%;
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 13% 93%;
+    --input: 210 13% 93%;
+    --ring: 270 91% 48%;
+    --success: 134 65% 41%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 221 42% 18%;
+    --sidebar-primary: 270 91% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 12% 94%;
+    --sidebar-accent-foreground: 221 42% 18%;
+    --sidebar-border: 210 13% 93%;
+    color-scheme: light;
+  }
+
+  /* Keep .dark the same as :root — dark is the default */
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --card: 222 40% 9%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 40% 9%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 213 100% 64%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 35% 14%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 222 35% 12%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 30% 16%;
+    --input: 222 30% 14%;
+    --ring: 213 100% 64%;
+    --chart-1: 213 100% 64%;
+    --chart-2: 142 70% 45%;
+    --chart-3: 25 95% 53%;
+    --chart-4: 0 72% 58%;
+    --chart-5: 270 80% 65%;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 25 95% 53%;
+    --warning-foreground: 0 0% 100%;
+    --info: 213 100% 64%;
+    --info-foreground: 0 0% 100%;
+    --sidebar-background: 222 40% 9%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 213 100% 64%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 35% 14%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 222 30% 16%;
+    --sidebar-ring: 213 100% 64%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Glow utilities */
+@layer utilities {
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.15), 0 0 40px rgba(74, 158, 255, 0.05);
+  }
+  .glow-orange {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.15), 0 0 40px rgba(249, 115, 22, 0.05);
+  }
+  .glow-green {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  }
+  .card-surface {
+    background: linear-gradient(135deg, hsl(222 40% 10%) 0%, hsl(222 40% 8%) 100%);
+    border: 1px solid hsl(222 30% 18%);
+  }
+  .card-surface-light {
+    background: linear-gradient(135deg, #F8F9FA 0%, #F3F4F6 100%);
+    border: 1px solid #E8ECEF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  .btn-primary-gradient {
+    background: linear-gradient(135deg, #4A9EFF 0%, #2563EB 100%);
+    box-shadow: 0 4px 15px rgba(74, 158, 255, 0.3);
+  }
+  .btn-orange-gradient {
+    background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+  }
+  .btn-green-gradient {
+    background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+  }
+  /* Light mode status backgrounds */
+  .light .bg-green-950\/40 {
+    @apply bg-green-50;
+  }
+  .light .bg-red-950\/40 {
+    @apply bg-red-50;
+  }
+  .light .bg-orange-950\/40 {
+    @apply bg-amber-50;
+  }
+  .light .bg-blue-950\/40 {
+    @apply bg-blue-50;
+  }
+  .light .bg-purple-950\/40 {
+    @apply bg-purple-50;
+  }
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 158, 255, 0.2);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 158, 255, 0.4);
+}
