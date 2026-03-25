@@ -112,3 +112,18 @@ export const base44 = {
 };
 
 export default base44;
+integrations: {
+  Core: {
+    UploadFile: async ({ file }) => {
+      const fileName = `tolls/${Date.now()}-${file.name}`;
+      const { data, error } = await supabase.storage
+        .from('toll-files')
+        .upload(fileName, file, { upsert: true });
+      if (error) throw new Error(error.message);
+      const { data: { publicUrl } } = supabase.storage
+        .from('toll-files')
+        .getPublicUrl(fileName);
+      return { file_url: publicUrl };
+    }
+  }
+},
