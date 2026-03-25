@@ -1,4 +1,4 @@
-import { supabase } from '../integrations/supabase/client.js';
+import { supabase } from '../integrations/supabase/client';
 
 // Safe base64 - no crash on large files
 function toBase64Safe(buffer) {
